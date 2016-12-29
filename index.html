@@ -229,7 +229,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://davidmindgarden.github.io/2016/12/29/Portfolio-optimazation-using-R-lpsolveAPI-package/">
+  <link itemprop="mainEntityOfPage" href="http://davidmindgarden.github.io/2016/12/29/Portfolio-optimization-using-R-lpsolveAPI-package/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Xiaodong Cao">
@@ -254,8 +254,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/29/Portfolio-optimazation-using-R-lpsolveAPI-package/" itemprop="url">
-                  Portfolio optimazation using R lpsolveAPI package
+                <a class="post-title-link" href="/2016/12/29/Portfolio-optimization-using-R-lpsolveAPI-package/" itemprop="url">
+                  Portfolio optimization using R lpsolveAPI package (Linear programming)
                 </a>
               
             
@@ -307,7 +307,14 @@
       
         
           
-            <h2 id="this-is-me"><a href="#this-is-me" class="headerlink" title="this is me"></a>this is me</h2><h3 id="find-your-passion"><a href="#find-your-passion" class="headerlink" title="find your passion"></a>find your passion</h3>
+            <p>Linear programing is a valuable instrument when it comes to decision making. It is a method to achieve the best outcome(such as maximum profit or lowest cost) in a mathematical model whose requirements are represented by linear relationship. Here I will present how R in conjunction with lpsolveAPI package, can be used to build a linear programming model to solve portfolio construction and optimization issue we met at work.</p>
+<h2 id="prerequirement"><a href="#prerequirement" class="headerlink" title="prerequirement"></a>prerequirement</h2><h3 id="install-R"><a href="#install-R" class="headerlink" title="install R"></a>install R</h3><p>Please go to R website to install R first: <a href="https://www.r-project.org" target="_blank" rel="external">R site</a><br>R is a language and environment for statistical computing and graphics.</p>
+<h3 id="install-lpsolveAPI-package"><a href="#install-lpsolveAPI-package" class="headerlink" title="install lpsolveAPI package"></a>install lpsolveAPI package</h3><p>After you install R, we can just fire up an R shell and type below to install package:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; install.package(<span class="string">"lpSolveAPI"</span>)</div></pre></td></tr></table></figure>
+<h3 id="install-RStudio"><a href="#install-RStudio" class="headerlink" title="install RStudio"></a>install RStudio</h3><p>Please install R Studio as our development IDE: <a href="https://www.rstudio.com" target="_blank" rel="external">R Studio</a></p>
+<p>R Studio screenshot:</p>
+<p><img src="/images/RStudioSample.png"></p>
+<h2 id="Portfolio-construction-analysis"><a href="#Portfolio-construction-analysis" class="headerlink" title="Portfolio construction analysis"></a>Portfolio construction analysis</h2>
           
         
       
