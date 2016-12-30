@@ -313,6 +313,13 @@
 <h3 id="install-RStudio"><a href="#install-RStudio" class="headerlink" title="install RStudio"></a>install RStudio</h3><p>Please install R Studio as our development IDE: <a href="https://www.rstudio.com">R Studio</a></p>
 <p>R Studio screenshot:</p>
 <p><img src="/images/RStudioSample.png" /></p>
+<h2 id="Portfolio-construction-analysis"><a href="#Portfolio-construction-analysis" class="headerlink" title="Portfolio construction analysis"></a>Portfolio construction analysis</h2><p>We want to build 10 portfolio with 7000 trades in our bucket. Each trades has its own delta value and each portfolio has its own target delta range (delta_min and delta_max). We are looking for a way to maximize the number of trades in these portfolios.</p>
+<p>The following constrains have to be taken in consideration:</p>
+<ul>
+<li>Each portfolio delta range (delta max and delta min)</li>
+<li>Each trade can only be put in one portfolio</li>
+</ul>
+<p>[<br>\begin{eqnarray<em>}<br>i_w\cdot\psi_v\cdot N_w&amp;=&amp;\psi_w\cdot i_w\cdot N_w\<br>&amp;=&amp;\psi_w\cdot i<em>w\cdot\sum</em>{\sigma\in G_w}\sigma\<br>&amp;=&amp;\psi<em>w\cdot\sum</em>{\sigma\in G_w}\sigma\<br>&amp;=&amp; i_w\cdot N_w\cdot\psi_w.<br>\end{eqnarray</em>}<br>]</p>
           <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/12/29/Portfolio-optimization-using-R-lpsolveAPI-package/#more" rel="contents">
