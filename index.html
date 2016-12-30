@@ -314,78 +314,7 @@ install lpsolveAPI packageAfter you install R, we can just fire up an R shell an
 install RStudioPlease install R Studio as our development IDE: R Studio
 R Studio screenshot:
 
-Portfolio construction analysisWe want to build 10 portfolio with 7000 trades in our bucket. Each trades has its own delta value and each portfolio has its own target delta range (delta_min and delta_max). We are looking for a way to maximize the number of trades in these portfolios.
-The following constrains have to be taken in consideration:
-
-Each portfolio delta range (delta max and delta min)
-Each trade can only be put in one portfolio
-
-Let’s assume we have the following information at hand:
-
-
-
-portfolio_id
-delta_max
-delta_min
-
-
-
-
-w1
-10
-20
-
-
-w2
-12
-18
-
-
-w2
-12
-25
-
-
-
-
-
-
-trade_id
-trade_delta
-
-
-
-
-t1
-3
-
-
-t2
-6
-
-
-t3
-7
-
-
-t4
-5
-
-
-t5
-9
-
-
-t6
-3
-
-
-t7
-7
-
-
-
-R lpsolveAPI implementationLet’s l
+Portfolio construction analysisWe want to build 10 portfolio with 7000 trades in our bucket. Each trades has its own delta value and each portfolio has its own target delta range (delta_
           ...
           <!--noindex-->
           <div class="post-more-link text-center">
