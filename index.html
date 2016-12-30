@@ -307,94 +307,93 @@
       
         
           
-            <p>Linear programing is a valuable instrument when it comes to decision making. It is a method to achieve the best outcome(such as maximum profit or lowest cost) in a mathematical model whose requirements are represented by linear relationship. Here I will present how R in conjunction with lpsolveAPI package, can be used to build a linear programming model to solve portfolio construction and optimization issue we met at work.</p>
-<h2 id="prerequirement"><a href="#prerequirement" class="headerlink" title="prerequirement"></a>prerequirement</h2><h3 id="install-R"><a href="#install-R" class="headerlink" title="install R"></a>install R</h3><p>Please go to R website to install R first: <a href="https://www.r-project.org" target="_blank" rel="external">R site</a><br>R is a language and environment for statistical computing and graphics.</p>
-<h3 id="install-lpsolveAPI-package"><a href="#install-lpsolveAPI-package" class="headerlink" title="install lpsolveAPI package"></a>install lpsolveAPI package</h3><p>After you install R, we can just fire up an R shell and type below to install package:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; install.package(<span class="string">"lpSolveAPI"</span>)</div></pre></td></tr></table></figure>
-<h3 id="install-RStudio"><a href="#install-RStudio" class="headerlink" title="install RStudio"></a>install RStudio</h3><p>Please install R Studio as our development IDE: <a href="https://www.rstudio.com" target="_blank" rel="external">R Studio</a></p>
-<p>R Studio screenshot:</p>
-<p><img src="/images/RStudioSample.png"></p>
-<h2 id="Portfolio-construction-analysis"><a href="#Portfolio-construction-analysis" class="headerlink" title="Portfolio construction analysis"></a>Portfolio construction analysis</h2><p>We want to build 10 portfolio with 7000 trades in our bucket. Each trades has its own delta value and each portfolio has its own target delta range (delta_min and delta_max). We are looking for a way to maximize the number of trades in these portfolios.</p>
-<p>The following constrains have to be taken in consideration:</p>
-<ul>
-<li>Each portfolio delta range (delta max and delta min)</li>
-<li>Each trade can only be put in one portfolio</li>
-</ul>
-<p>Let’s assume we have the following information at hand:</p>
-<table>
-<thead>
-<tr>
-<th><strong>portfolio_id</strong></th>
-<th><strong>delta_max</strong></th>
-<th><strong>delta_min</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>w1</td>
-<td>10</td>
-<td>20</td>
-</tr>
-<tr>
-<td>w2</td>
-<td>12</td>
-<td>18</td>
-</tr>
-<tr>
-<td>w2</td>
-<td>12</td>
-<td>25</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>trade_id</th>
-<th>trade_delta</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>t1</td>
-<td>3</td>
-</tr>
-<tr>
-<td>t2</td>
-<td>6</td>
-</tr>
-<tr>
-<td>t3</td>
-<td>7</td>
-</tr>
-<tr>
-<td>t4</td>
-<td>5</td>
-</tr>
-<tr>
-<td>t5</td>
-<td>9</td>
-</tr>
-<tr>
-<td>t6</td>
-<td>3</td>
-</tr>
-<tr>
-<td>t7</td>
-<td>7</td>
-</tr>
-</tbody>
-</table>
-<h2 id="R-lpsolveAPI-implementation"><a href="#R-lpsolveAPI-implementation" class="headerlink" title="R lpsolveAPI implementation"></a>R lpsolveAPI implementation</h2><p>Let’s load the necessary libraries and datasets to be used.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">library(lpSolveAPI)</div><div class="line"></div><div class="line"><span class="comment">#used for result visualization</span></div><div class="line">library(readr)</div><div class="line">library(ggplot2)</div><div class="line">library(reshape)</div><div class="line">library(gridExtra)</div><div class="line"></div><div class="line"><span class="comment">#define the datasets</span></div><div class="line">portfolio&lt;-read_csv(<span class="string">"~/RStudio/portfolio.csv"</span>)</div><div class="line">trade&lt;-read_csv(<span class="string">"~/RStudio/trade.csv"</span>)</div></pre></td></tr></table></figure>
-<p>Next, I start with building the actual lp model, my goal is to end up with the following model:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#create an LP model with 10 contraints and 12 decision variables</span></div><div class="line">lpmodel&lt;-make.lp(NROW(portfolio)+NROW(trade),<span class="number">21</span>)</div><div class="line"></div><div class="line"><span class="comment">#I used this to keep count within the loops, I admit that this could be done a lot neater</span></div><div class="line">column&lt;<span class="number">-0</span></div><div class="line">row&lt;<span class="number">-0</span></div><div class="line"></div><div class="line"><span class="comment">#build the model column per column</span></div><div class="line"><span class="keyword">for</span>(pi <span class="keyword">in</span> portfolio$portfolio_id)&#123;</div><div class="line">  row&lt;-row+<span class="number">1</span></div><div class="line">  <span class="keyword">for</span>(ti <span class="keyword">in</span> seq(<span class="number">1</span>,NROW(trade$trade_id)))&#123;</div><div class="line">    column&lt;-column+<span class="number">1</span></div><div class="line"></div><div class="line">    <span class="comment">#this takes the arguments 'column','values' &amp; 'indices' (as in where these values should be placed in the column)</span></div><div class="line">    set.column(lpmodel,column,c(trade[ti,<span class="string">'trade_delta'</span>], <span class="number">1</span>), indices=c(row,NROW(portfolio)+ti))</div><div class="line">  &#125;&#125;</div><div class="line"></div><div class="line"><span class="comment">#set rhs weight constraints</span></div><div class="line">set.constr.value(lpmodel, lhs=portfolio$delta_min, rhs=portfolio$delta_max, constraints=seq(<span class="number">1</span>,NROW(portfolio)))</div><div class="line"></div><div class="line"><span class="comment">#set rhs volume constraints</span></div><div class="line"><span class="comment">#set.constr.value(lpmodel, lhs=portfolio$delta_min, rhs=portfolio$delta_max, constraints=seq(NROW(portfolio)+1,NROW(portfolio)*2))</span></div><div class="line"></div><div class="line"><span class="comment">#set rhs volume constraints</span></div><div class="line">set.constr.value(lpmodel, lhs=rep(<span class="number">0</span>,<span class="number">7</span>), rhs=rep(<span class="number">1</span>,<span class="number">7</span>),constraints=seq(NROW(portfolio)+<span class="number">1</span>,NROW(portfolio)+NROW(trade)))</div><div class="line"></div><div class="line"><span class="comment">#set objective coefficients</span></div><div class="line">set.objfn(lpmodel, rep(<span class="number">1</span>,<span class="number">21</span>))</div><div class="line"></div><div class="line"><span class="comment">#set objective direction</span></div><div class="line">lp.control(lpmodel,sense=<span class="string">'max'</span>)</div><div class="line"></div><div class="line"><span class="comment">#I in order to be able to visually check the model, I find it useful to write the model to a text file</span></div><div class="line">write.lp(lpmodel,<span class="string">'port_model.lp'</span>,type=<span class="string">'lp'</span>)</div></pre></td></tr></table></figure>
-<p>So, let’s have a look at the ‘port_model.lp’ file</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/* Objective function */</div><div class="line">max: +C1 +C2 +C3 +C4 +C5 +C6 +C7 +C8 +C9 +C10 +C11 +C12 +C13 +C14 +C15 +C16 +C17 +C18 +C19 +C20 +C21;</div><div class="line"></div><div class="line">/* Constraints */</div><div class="line">+<span class="number">650</span> &lt;= +<span class="number">18</span> C1 +<span class="number">10</span> C2 +<span class="number">5</span> C3 +<span class="number">20</span> C4 +<span class="number">20</span> C5 +<span class="number">20</span> C6 +<span class="number">20</span> C7 &lt;= <span class="number">700</span>;</div><div class="line">+<span class="number">640</span> &lt;= +<span class="number">18</span> C8 +<span class="number">10</span> C9 +<span class="number">5</span> C10 +<span class="number">20</span> C11 +<span class="number">20</span> C12 +<span class="number">20</span> C13 +<span class="number">20</span> C14 &lt;= <span class="number">780</span>;</div><div class="line">+<span class="number">600</span> &lt;= +<span class="number">18</span> C15 +<span class="number">10</span> C16 +<span class="number">5</span> C17 +<span class="number">20</span> C18 +<span class="number">20</span> C19 +<span class="number">20</span> C20 +<span class="number">20</span> C21 &lt;= <span class="number">750</span>;</div><div class="line"><span class="number">-0</span> &lt;= +C1 +C8 +C15 &lt;= <span class="number">1</span>;</div><div class="line"><span class="number">-0</span> &lt;= +C2 +C9 +C16 &lt;= <span class="number">1</span>;</div><div class="line"><span class="number">-0</span> &lt;= +C3 +C10 +C17 &lt;= <span class="number">1</span>;</div><div class="line"><span class="number">-0</span> &lt;= +C4 +C11 +C18 &lt;= <span class="number">1</span>;</div><div class="line"><span class="number">-0</span> &lt;= +C5 +C12 +C19 &lt;= <span class="number">1</span>;</div><div class="line"><span class="number">-0</span> &lt;= +C6 +C13 +C20 &lt;= <span class="number">1</span>;</div><div class="line"><span class="number">-0</span> &lt;= +C7 +C14 +C21 &lt;= <span class="number">1</span>;</div></pre></td></tr></table></figure>
-<p>This seems to be the table which we wanted to create! :)</p>
-<p>Now to see if the model will solve:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#solve the model, if this return 0 an optimal solution is found</span></div><div class="line">solve(lpmodel)</div><div class="line"></div><div class="line"><span class="comment">#this return the proposed solution</span></div><div class="line">get.objective(lpmodel)</div></pre></td></tr></table></figure></p>
+          Linear programing is a valuable instrument when it comes to decision making. It is a method to achieve the best outcome(such as maximum profit or lowest cost) in a mathematical model whose requirements are represented by linear relationship. Here I will present how R in conjunction with lpsolveAPI package, can be used to build a linear programming model to solve portfolio construction and optimization issue we met at work.
+prerequirementinstall RPlease go to R website to install R first: R siteR is a language and environment for statistical computing and graphics.
+install lpsolveAPI packageAfter you install R, we can just fire up an R shell and type below to install package:
+1&gt; install.package("lpSolveAPI")
+install RStudioPlease install R Studio as our development IDE: R Studio
+R Studio screenshot:
 
-          
+Portfolio construction analysisWe want to build 10 portfolio with 7000 trades in our bucket. Each trades has its own delta value and each portfolio has its own target delta range (delta_min and delta_max). We are looking for a way to maximize the number of trades in these portfolios.
+The following constrains have to be taken in consideration:
+
+Each portfolio delta range (delta max and delta min)
+Each trade can only be put in one portfolio
+
+Let’s assume we have the following information at hand:
+
+
+
+portfolio_id
+delta_max
+delta_min
+
+
+
+
+w1
+10
+20
+
+
+w2
+12
+18
+
+
+w2
+12
+25
+
+
+
+
+
+
+trade_id
+trade_delta
+
+
+
+
+t1
+3
+
+
+t2
+6
+
+
+t3
+7
+
+
+t4
+5
+
+
+t5
+9
+
+
+t6
+3
+
+
+t7
+7
+
+
+
+R lpsolveAPI implementationLet’s l
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/29/Portfolio-optimization-using-R-lpsolveAPI-package/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -509,17 +508,24 @@
       
         
           
-            <p><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a powerful tool for building personal blog. You can easily write your blog and publish to your domains. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+          Hexo is a powerful tool for building personal blog. You can easily write your blog and publish to your domains. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick StartCreate a new post1$ hexo new "My New Post"
+More info: Writing
+Run server1$ hexo server
+More info: Server
+Generate static files1$ hexo generate
+More info: Generating
+Deploy to remote sites1$ hexo deploy
+More info: Deployment
 
           
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/18/Building-blog-with-Hexo/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
