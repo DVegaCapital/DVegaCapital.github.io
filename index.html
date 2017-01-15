@@ -255,7 +255,7 @@
               
                 
                 <a class="post-title-link" href="/2016/12/30/Building-LRU-and-LFU-cache/" itemprop="url">
-                  Building LRU and LFU cache (least recently cache & least frequency cache) 
+                  Building LRU and LFU cache
                 </a>
               
             
@@ -308,7 +308,9 @@
         
           <h1 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h1><p>LFU : Least Frequency Cache<br>LRU : Least Recently Cache</p>
 <p>Both LRU and LFU are cache replacements algorithm. When the cache is full, the algorithm must choose which items to discard.</p>
-<h1 id="LRU-Cache-Least-Recently-Used-Cache"><a href="#LRU-Cache-Least-Recently-Used-Cache" class="headerlink" title="LRU Cache (Least Recently Used Cache)"></a>LRU Cache (Least Recently Used Cache)</h1><p>below are java code for LRU cache implementation:</p>
+<h1 id="LRU-Cache-Least-Recently-Used-Cache"><a href="#LRU-Cache-Least-Recently-Used-Cache" class="headerlink" title="LRU Cache (Least Recently Used Cache)"></a>LRU Cache (Least Recently Used Cache)</h1><p>Here I plan to use Hashmap to store the key value relationship datasets.</p>
+<p>As description, when storage is reach to limitation, the least recently used datasets need be to moved. Here we use a node linked list to track the datasets timeline.</p>
+<p>below are java code for LRU cache implementation:</p>
           <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/12/30/Building-LRU-and-LFU-cache/#more" rel="contents">
