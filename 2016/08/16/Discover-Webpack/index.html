@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://davidmindgarden.github.io/2016/08/16/Discover-Webpack/index.html">
 <meta property="og:site_name" content="David Mind Garden">
 <meta property="og:description" content="Webpack now becomes the most populated words in front end community. we can combine webpack with gulpto a powerful front end project framework. so let us start from scratch to see how to setup the wor">
-<meta property="og:updated_time" content="2017-02-09T21:40:36.000Z">
+<meta property="og:updated_time" content="2017-02-09T22:09:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Discover Webpack">
 <meta name="twitter:description" content="Webpack now becomes the most populated words in front end community. we can combine webpack with gulpto a powerful front end project framework. so let us start from scratch to see how to setup the wor">
@@ -305,6 +305,7 @@
 <h2 id="Project-configuration-file"><a href="#Project-configuration-file" class="headerlink" title="Project configuration file"></a>Project configuration file</h2><p>here we use package.json as our deployment and project configuration file.<br>To help us automate some processes, we filled the scripts with most used command:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    <span class="string">"scripts"</span>: &#123;</div><div class="line">        <span class="string">"start"</span>: <span class="string">"./node_modules/.bin/babel-node server"</span>,</div><div class="line">        <span class="string">"build"</span>: <span class="string">"rimraf dist &amp;&amp; set NODE_ENV=production &amp;&amp; webpack --config ./webpack.production.config.js --progress --profile --colors"</span>,</div><div class="line">        <span class="string">"test"</span>: ...</div><div class="line">     &#125;,</div><div class="line">     ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Express-server"><a href="#Express-server" class="headerlink" title="Express server"></a>Express server</h2><p>Express is great framework to handle the requests from the browser if you want to use Node server as<br>development tool.</p>
+<a id="more"></a>
 <p><em>server.js</em></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"></div><div class="line"><span class="keyword">var</span> isProduction = process.env.NODE_ENV === <span class="string">'production'</span>;</div><div class="line"><span class="keyword">var</span> port = isProduction ? process.env.PORT : <span class="number">3000</span>;</div><div class="line"><span class="keyword">var</span> publicPath = path.resolve(__dirname, <span class="string">'public'</span>);</div><div class="line"></div><div class="line"><span class="comment">// We point to our static assets</span></div><div class="line">app.use(express.static(publicPath));</div><div class="line"></div><div class="line"><span class="comment">// And run the server</span></div><div class="line">app.listen(port, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Server running on port '</span> + port);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h2 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h2><p>Let us first configure a webpack for our development workflow:</p>
@@ -335,7 +336,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/02/09/Getting-Started-with-Stylus/" rel="next" title="Getting Started with Stylus">
+              <a href="/2016/07/09/Getting-Started-with-Stylus/" rel="next" title="Getting Started with Stylus">
                 <i class="fa fa-chevron-left"></i> Getting Started with Stylus
               </a>
             
