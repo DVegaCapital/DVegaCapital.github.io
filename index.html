@@ -306,8 +306,7 @@
 
       
         
-          
-            <p>In this post I will be writing a map reduce program to recommend movies based on user ratings.  We will be using movie-lens data to generate recommendation. So goal here is to read the movies lens (u.data) and for each movies give recommended movies or similar movies to watch based on their ratings. (For example Is movie ‘12 Angry Men‘ similar to ‘Real Genius‘ ?) Let’s get started.</p>
+          <p>In this post I will be writing a map reduce program to recommend movies based on user ratings.  We will be using movie-lens data to generate recommendation. So goal here is to read the movies lens (u.data) and for each movies give recommended movies or similar movies to watch based on their ratings. (For example Is movie ‘12 Angry Men‘ similar to ‘Real Genius‘ ?) Let’s get started.</p>
 <p>The approach I will be using here is called as Item-based  collaborative filtering. It involves following steps.</p>
 <ol>
 <li>Find every pair of movies watched by same person</li>
@@ -315,8 +314,13 @@
 <li>Sort by movie, then by similarity strength</li>
 </ol>
 <p>So the logic here is as following. Let us say that there are 3 users.  (A, B and C).  A watched movie 1 and movie 2 and rated good on those two movies.  User B also watched movie 1 and movie2 and rated good. Now say C watched movie 2, but not watched movie1, then we can recommend movie1 for user C.</p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/05/20/Movie-Recommendation-example-using-MapReduce/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
