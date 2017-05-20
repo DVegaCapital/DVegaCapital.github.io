@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://davidmindgarden.github.io/2017/05/20/Movie-Recommendation-example-using-MapReduce/index.html">
 <meta property="og:site_name" content="David Mind Garden">
 <meta property="og:description" content="In this post I will be writing a map reduce program to recommend movies based on user ratings.  We will be using movie-lens data to generate recommendation. So goal here is to read the movies lens (u.">
-<meta property="og:updated_time" content="2017-05-20T19:42:22.000Z">
+<meta property="og:updated_time" content="2017-05-20T20:12:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Movie Recommendation example using MapReduce">
 <meta name="twitter:description" content="In this post I will be writing a map reduce program to recommend movies based on user ratings.  We will be using movie-lens data to generate recommendation. So goal here is to read the movies lens (u.">
@@ -310,6 +310,19 @@
 </ol>
 <p>So the logic here is as following. Let us say that there are 3 users.  (A, B and C).  A watched movie 1 and movie 2 and rated good on those two movies.  User B also watched movie 1 and movie2 and rated good. Now say C watched movie 2, but not watched movie1, then we can recommend movie1 for user C.</p>
 <a id="more"></a>
+<p>A peek of data</p>
+<h2 id="u-data"><a href="#u-data" class="headerlink" title="u.data"></a>u.data</h2><p>userid  movieid rating  timestamp<br>196    242    3    881250949<br>186    302    3    891717742<br>22    377    1    878887116<br>244    51    2    880606923<br>166    346    1    886397596</p>
+<h2 id="u-item"><a href="#u-item" class="headerlink" title="u.item"></a>u.item</h2><p>movieID  Name Release Date  URL<br>1|Toy Story (1995)|01-Jan-1995||<a href="http://us.imdb.com/M/title-exact?|" target="_blank" rel="external">http://us.imdb.com/M/title-exact?|</a>…<br>2|GoldenEye (1995)|01-Jan-1995||<a href="http://us.imdb.com/M/title-exact|" target="_blank" rel="external">http://us.imdb.com/M/title-exact|</a>..<br>3|Four Rooms (1995)|01-Jan-1995||<a href="http://us.imdb.com/M/title-exact?|" target="_blank" rel="external">http://us.imdb.com/M/title-exact?|</a>…<br>4|Get Shorty (1995)|01-Jan-1995||<a href="http://us.imdb.com/M/title-exact?|" target="_blank" rel="external">http://us.imdb.com/M/title-exact?|</a>..</p>
+<p>A peek of  final result</p>
+<p>12 Angry Men (1957) [[ Powder (1995)”, 0.9500183596757119, 16]<br>                 [“Game, The (1997)”, 0.9500275459249429, 29]<br>                     [“Ed Wood (1994)”, 0.950199438266542, 49]<br>                    [“Die Hard: With a Vengeance (1995)”, 0.9502072262900199, 48]<br>                 [“Real Genius (1985)”, 0.9512906940485492, 35]<br>                      [“Pollyanna (1960)”, 0.9514215873345201, 15]<br>                     [“I.Q. (1994)”, 0.9514657003281275, 30]<br>                     ………………………..]]</p>
+<p>So the results above shows movies similar to 12 Angry Men in the data base provided by us.</p>
+<p>Thinking in a MapReduce way<br>Now we have to convert the above problem into a map reduce algorithm.  So there will be 3  (mapper and reducer) to reach the final result.    Following are the steps done at each mapper and reducer respectively.  (Note our primary input is u.data and u.item is passed as a parameter to retrieve movie name from movie id)</p>
+<p>Mapper 1 :  Extract user, (movie,rating)<br>Input – &gt; u.data<br>output – &gt;  userID, (movieID, rating)</p>
+<p>Reducer 1 : Group, user, (movie,rating)<br>Input –&gt; userID, (movieID, rating)<br>output –&gt; userID, [(movieID,rating)(movieID,rating)…]</p>
+<p>Mapper 2 :  Create movie, rating pairs for each user (combinations)<br>Input – &gt; userID, [(movieID,ratings) (movieID,ratings)…]<br>output -&gt; (movieID,movieID) , (rating, rating)</p>
+<p>Reducer 2 :  Compute rating based similarity for each movie pair (Cosine Similarity)<br>Input – &gt; (movieID, movieID), ([(rating,rating)(rating,rating)…]<br>Output – &gt; (movieID, movieID), (Similarity Score, Number of users who saw both)</p>
+<p>Mapper 3 :  Get movie Name and Sort based on similarity Score<br>Reducer 3 : Final result displayed grouped by movie name</p>
+
       
     </div>
 
@@ -390,8 +403,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -430,6 +452,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u-data"><span class="nav-number">1.</span> <span class="nav-text">u.data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u-item"><span class="nav-number">2.</span> <span class="nav-text">u.item</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
