@@ -306,14 +306,11 @@
 
       
         
-          <p>In this post I will be writing a map reduce program to recommend movies based on user ratings.  We will be using movie-lens data to generate recommendation. So goal here is to read the movies lens (u.data) and for each movies give recommended movies or similar movies to watch based on their ratings. (For example Is movie ‘12 Angry Men‘ similar to ‘Real Genius‘ ?) Let’s get started.</p>
-<p>The approach I will be using here is called as Item-based  collaborative filtering. It involves following steps.</p>
-<ol>
-<li>Find every pair of movies watched by same person</li>
-<li>Measure their similarities across all users who watched both</li>
-<li>Sort by movie, then by similarity strength</li>
-</ol>
-<p>So the logic here is as following. Let us say that there are 3 users.  (A, B and C).  A watched movie 1 and movie 2 and rated good on those two movies.  User B also watched movie 1 and movie2 and rated good. Now say C watched movie 2, but not watched movie1, then we can recommend movie1 for user C.</p>
+          <p>Here I want to present how we can use map-reduce programming model for making a movie recommendations. Recommendations<br>System are quite popular among shopping sites and social network these days. Generally, I will apply classic collaborative<br>filtering to user interaction data, to build a recommendation engine. </p>
+<p><b>Why Map-reduce?</p>
+<p>MapReduce is a framework originally developed at Google that allows easy large scale distributed computing across a number<br>of domains. Apache Hadoop is an open source implementation of it. It scales well to many thousands of nodes and can handle<br>petabytes of data. For movie recommendations where we have to find the similar products to a product you are interested at,<br>we must calculate how similar pairs of items are. In other words, we need to compute the similarity between two movies. </p>
+<p>The calculation load can be extremely big in the real scenarios. suppose you own a shopping site, which has 50,000 products.<br>Then potentially we would have to compute over 250 billion computations. In this case, the best way to handle this scenarion<br>is going after a divide and conquer pattern, and MapReduce is a powerful framework and can be used to implement data mining<br>algorithms. </p>
+<p><img src="/images/Map-Reduce-Flow.png" /></p>
           <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/05/20/Movie-Recommendation-example-using-MapReduce/#more" rel="contents">
