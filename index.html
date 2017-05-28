@@ -312,7 +312,10 @@ seems scary to look at but is actually fairly simple to understand. </p>
 <p>PageRank algorithm calculate the PR scores for each websites, and then sort the search results base on PR scores. 
 Assume a person randomly click the website link and the PageRank algorithm outputs a probability distribution used 
 to represent the likelihood that every page will be reached. </p>
-<h1 id="A-simple-PageRank-model"><a href="#A-simple-PageRank-model" class="headerlink" title="A simple PageRank model"></a>A simple PageRank model</h1><p><img src="/images/PR1.jpg" /></p>
+<h1 id="A-simple-PageRank-model"><a href="#A-simple-PageRank-model" class="headerlink" title="A simple PageRank model"></a>A simple PageRank model</h1><p>We can view the website connection graph as a directed graph and every website is equal to the node. 
+If there is a outbound link from website A to website B, then we can view it as a edge with direction – from node A to 
+node B. A simple example is present as below: </p>
+<p><img src="/images/PR1.jpg" /></p>
           <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/05/27/Implementing-PageRank-Using-Mapreduce/#more" rel="contents">
