@@ -306,10 +306,13 @@
 
       
         
-          <p>Webpack now becomes the most populated words in front end community. we can combine webpack with gulp<br>to a powerful front end project framework. so let us start from scratch to see how to setup the workflow</p>
-<h2 id="Project-configuration-file"><a href="#Project-configuration-file" class="headerlink" title="Project configuration file"></a>Project configuration file</h2><p>here we use package.json as our deployment and project configuration file.<br>To help us automate some processes, we filled the scripts with most used command:</p>
+          <p>Webpack now becomes the most populated words in front end community. we can combine webpack with gulp
+to a powerful front end project framework. so let us start from scratch to see how to setup the workflow</p>
+<h2 id="Project-configuration-file"><a href="#Project-configuration-file" class="headerlink" title="Project configuration file"></a>Project configuration file</h2><p>here we use package.json as our deployment and project configuration file.
+To help us automate some processes, we filled the scripts with most used command:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    <span class="string">"scripts"</span>: &#123;</div><div class="line">        <span class="string">"start"</span>: <span class="string">"./node_modules/.bin/babel-node server"</span>,</div><div class="line">        <span class="string">"build"</span>: <span class="string">"rimraf dist &amp;&amp; set NODE_ENV=production &amp;&amp; webpack --config ./webpack.production.config.js --progress --profile --colors"</span>,</div><div class="line">        <span class="string">"test"</span>: ...</div><div class="line">     &#125;,</div><div class="line">     ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Express-server"><a href="#Express-server" class="headerlink" title="Express server"></a>Express server</h2><p>Express is great framework to handle the requests from the browser if you want to use Node server as<br>development tool.</p>
+<h2 id="Express-server"><a href="#Express-server" class="headerlink" title="Express server"></a>Express server</h2><p>Express is great framework to handle the requests from the browser if you want to use Node server as
+development tool.</p>
           <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/16/Discover-Webpack/#more" rel="contents">
@@ -433,7 +436,8 @@
           <p>Stylus is a very popular css preprocessor, with lots features like extending class, creating mixins, importing spreadsheets and setting variables. Let’s check out the basics of stylus and get into css programming.</p>
 <h2 id="Installation-and-Setup"><a href="#Installation-and-Setup" class="headerlink" title="Installation and Setup"></a>Installation and Setup</h2><p>Stylus is hosted in github and can be easily installed using NPM package manager:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install stylus -g</div></pre></td></tr></table></figure>
-<p>Stylus files are given .styl extension, can be placed anywhere in the project.<br>Here I listed some useful usages options here. <em>–watch</em> option will automate compile your stylus to css, <em>–compress</em> option will compress css output. Also in project you can integrate stylus with <em>gulp</em></p>
+<p>Stylus files are given .styl extension, can be placed anywhere in the project.
+Here I listed some useful usages options here. <em>–watch</em> option will automate compile your stylus to css, <em>–compress</em> option will compress css output. Also in project you can integrate stylus with <em>gulp</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ stylus stylus/main.styl --out /css --compress</div><div class="line"></div><div class="line">$ stylus --watch stylus/main.styl</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-more-link text-center">
@@ -679,7 +683,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
