@@ -84,16 +84,15 @@
 
 
 
-<meta name="description" content="Stylus is a very popular css preprocessor, with lots features like extending class, creating mixins, importing spreadsheets and setting variables. Let’s check out the basics of stylus and get into css">
 <meta property="og:type" content="article">
-<meta property="og:title" content="chapter 3- Food and Sharing">
+<meta property="og:title" content="Chapter 3 - Food and Sharing">
 <meta property="og:url" content="http://davidmindgarden.github.io/2017/05/09/chapter 3/index.html">
 <meta property="og:site_name" content="David Mind Garden">
-<meta property="og:description" content="Stylus is a very popular css preprocessor, with lots features like extending class, creating mixins, importing spreadsheets and setting variables. Let’s check out the basics of stylus and get into css">
-<meta property="og:updated_time" content="2018-01-06T22:27:47.713Z">
+<meta property="og:image" content="http://davidmindgarden.github.io/images/nyc.jpg">
+<meta property="og:updated_time" content="2018-01-06T22:50:13.502Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chapter 3- Food and Sharing">
-<meta name="twitter:description" content="Stylus is a very popular css preprocessor, with lots features like extending class, creating mixins, importing spreadsheets and setting variables. Let’s check out the basics of stylus and get into css">
+<meta name="twitter:title" content="Chapter 3 - Food and Sharing">
+<meta name="twitter:image" content="http://davidmindgarden.github.io/images/nyc.jpg">
 
 
 
@@ -127,7 +126,7 @@
 
 
 
-  <title> chapter 3- Food and Sharing | David Mind Garden </title>
+  <title> Chapter 3 - Food and Sharing | David Mind Garden </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -252,7 +251,7 @@
             
             
               
-                chapter 3- Food and Sharing
+                Chapter 3 - Food and Sharing
               
             
           </h1>
@@ -301,26 +300,8 @@
       
 
       
-        <p>Stylus is a very popular css preprocessor, with lots features like extending class, creating mixins, importing spreadsheets and setting variables. Let’s check out the basics of stylus and get into css programming.</p>
-<h2 id="Installation-and-Setup"><a href="#Installation-and-Setup" class="headerlink" title="Installation and Setup"></a>Installation and Setup</h2><p>Stylus is hosted in github and can be easily installed using NPM package manager:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install stylus -g</div></pre></td></tr></table></figure>
-<p>Stylus files are given .styl extension, can be placed anywhere in the project.
-Here I listed some useful usages options here. <em>–watch</em> option will automate compile your stylus to css, <em>–compress</em> option will compress css output. Also in project you can integrate stylus with <em>gulp</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ stylus stylus/main.styl --out /css --compress</div><div class="line"></div><div class="line">$ stylus --watch stylus/main.styl</div></pre></td></tr></table></figure>
+        <p><img src="/images/nyc.jpg"></p>
 <a id="more"></a>
-<h2 id="Stlyus-Syntax-Basics"><a href="#Stlyus-Syntax-Basics" class="headerlink" title="Stlyus Syntax Basics"></a>Stlyus Syntax Basics</h2><p>Let’s review some basics syntax.
-It show features like</p>
-<ul>
-<li>variable setting</li>
-<li>mixin calls</li>
-<li>loop iterator</li>
-<li>extend existing class</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">/* Set a basic variable */</div><div class="line">base-font-size = 12px</div><div class="line"></div><div class="line">/* Set a variable based on result of mixin call */</div><div class="line">body-background = invert(#ccc)</div><div class="line"></div><div class="line">/* Set some basic rules */</div><div class="line">body</div><div class="line">    color #333</div><div class="line">    background #fff</div><div class="line"></div><div class="line">/* Nest rules */</div><div class="line">nav</div><div class="line">    margin 10px</div><div class="line"></div><div class="line">    ul</div><div class="line">        list-style-type none</div><div class="line"></div><div class="line">        &gt; li</div><div class="line">            display inline-block</div><div class="line"></div><div class="line">            &amp;.current</div><div class="line">                background-color lightblue</div><div class="line"></div><div class="line">/* Use calculated values */</div><div class="line">div.column</div><div class="line">    margin-right (grid-spacing / 2)</div><div class="line">    margin-top (grid-spacing * 2)</div><div class="line"></div><div class="line">/* Use an already-set value for this element */</div><div class="line">div.center-column</div><div class="line">    width 200px</div><div class="line">    margin-left -(@width / 2)</div><div class="line"></div><div class="line">/* Get styles for this element from the result of a mixin */</div><div class="line">.promo</div><div class="line">    apply-promo-styles()</div><div class="line">    apply-width-center(400px)</div><div class="line"></div><div class="line">/* Iterate over a loop! */</div><div class="line">table</div><div class="line">    for row in 1 2 3 4 5</div><div class="line">        tr:nth-child(&#123;row&#125;)</div><div class="line">            height: 10px * row</div><div class="line"></div><div class="line">    /* or.... */</div><div class="line">    for row in (1..5)</div><div class="line">        tr:nth-child(&#123;row&#125;)</div><div class="line">            height: 10px * row</div><div class="line"></div><div class="line"></div><div class="line">/* Import another Stylus stylesheet */</div><div class="line">@import 'links.styl'</div><div class="line"></div><div class="line">/* Extend an existing class */</div><div class="line">.warning</div><div class="line">    @extend .noticeBlock</div></pre></td></tr></table></figure>
-<h2 id="Using-Mixins"><a href="#Using-Mixins" class="headerlink" title="Using Mixins"></a>Using Mixins</h2><p>Mixins are incredibly useful within CSS preprocessors for a number of reasons. They allow us to use logic to generate CSS but they also allow us to organize our CSS.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">    Basic mixin which vendorizes a propery.  Usage:</div><div class="line"></div><div class="line">    vendorize(box-sizing, border-box)</div><div class="line">*/</div><div class="line">vendorize(property, value)</div><div class="line">    -webkit-&#123;property&#125; value</div><div class="line">    -moz-&#123;property&#125; value</div><div class="line">    -ms-&#123;property&#125; value</div><div class="line">    &#123;property&#125; value</div></pre></td></tr></table></figure>
-<p>Check out the <a href="https://github.com/stylus/stylus" target="_blank" rel="external">Stylus github</a> for more info on how to get the most out of Stylus.</p>
-
       
     </div>
 
@@ -346,8 +327,8 @@ It show features like</p>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/16/chapter 2/" rel="next" title="chapter 2- Entreprenour">
-                <i class="fa fa-chevron-left"></i> chapter 2- Entreprenour
+              <a href="/2016/08/16/chapter 2/" rel="next" title="Chapter 2 - Entrepreneur">
+                <i class="fa fa-chevron-left"></i> Chapter 2 - Entrepreneur
               </a>
             
           </div>
@@ -356,8 +337,8 @@ It show features like</p>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/27/chapter 4/" rel="prev" title="chapter 4 -NYC Experience">
-                chapter 4 -NYC Experience <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/27/chapter 4/" rel="prev" title="Chapter 4 - NYC Experience">
+                Chapter 4 - NYC Experience <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -405,17 +386,8 @@ It show features like</p>
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/self.jpg"
@@ -455,22 +427,6 @@ It show features like</p>
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation-and-Setup"><span class="nav-number">1.</span> <span class="nav-text">Installation and Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stlyus-Syntax-Basics"><span class="nav-number">2.</span> <span class="nav-text">Stlyus Syntax Basics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Mixins"><span class="nav-number">3.</span> <span class="nav-text">Using Mixins</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
     </div>
   </aside>
@@ -492,17 +448,6 @@ It show features like</p>
   <span class="author" itemprop="copyrightHolder">Xiaodong Cao</span>
 </div>
 
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
 
 
         

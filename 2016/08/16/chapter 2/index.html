@@ -84,19 +84,15 @@
 
 
 
-<meta name="description" content="Webpack now becomes the most populated words in front end community. we can combine webpack with gulp
-to a powerful front end project framework. so let us start from scratch to see how to setup the wo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="chapter 2- Entreprenour">
+<meta property="og:title" content="Chapter 2 - Entrepreneur">
 <meta property="og:url" content="http://davidmindgarden.github.io/2016/08/16/chapter 2/index.html">
 <meta property="og:site_name" content="David Mind Garden">
-<meta property="og:description" content="Webpack now becomes the most populated words in front end community. we can combine webpack with gulp
-to a powerful front end project framework. so let us start from scratch to see how to setup the wo">
-<meta property="og:updated_time" content="2018-01-06T22:27:47.725Z">
+<meta property="og:image" content="http://davidmindgarden.github.io/images/nyc.jpg">
+<meta property="og:updated_time" content="2018-01-06T22:50:13.500Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chapter 2- Entreprenour">
-<meta name="twitter:description" content="Webpack now becomes the most populated words in front end community. we can combine webpack with gulp
-to a powerful front end project framework. so let us start from scratch to see how to setup the wo">
+<meta name="twitter:title" content="Chapter 2 - Entrepreneur">
+<meta name="twitter:image" content="http://davidmindgarden.github.io/images/nyc.jpg">
 
 
 
@@ -130,7 +126,7 @@ to a powerful front end project framework. so let us start from scratch to see h
 
 
 
-  <title> chapter 2- Entreprenour | David Mind Garden </title>
+  <title> Chapter 2 - Entrepreneur | David Mind Garden </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -255,7 +251,7 @@ to a powerful front end project framework. so let us start from scratch to see h
             
             
               
-                chapter 2- Entreprenour
+                Chapter 2 - Entrepreneur
               
             
           </h1>
@@ -304,20 +300,8 @@ to a powerful front end project framework. so let us start from scratch to see h
       
 
       
-        <p>Webpack now becomes the most populated words in front end community. we can combine webpack with gulp
-to a powerful front end project framework. so let us start from scratch to see how to setup the workflow</p>
-<h2 id="Project-configuration-file"><a href="#Project-configuration-file" class="headerlink" title="Project configuration file"></a>Project configuration file</h2><p>here we use package.json as our deployment and project configuration file.
-To help us automate some processes, we filled the scripts with most used command:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    <span class="string">"scripts"</span>: &#123;</div><div class="line">        <span class="string">"start"</span>: <span class="string">"./node_modules/.bin/babel-node server"</span>,</div><div class="line">        <span class="string">"build"</span>: <span class="string">"rimraf dist &amp;&amp; set NODE_ENV=production &amp;&amp; webpack --config ./webpack.production.config.js --progress --profile --colors"</span>,</div><div class="line">        <span class="string">"test"</span>: ...</div><div class="line">     &#125;,</div><div class="line">     ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Express-server"><a href="#Express-server" class="headerlink" title="Express server"></a>Express server</h2><p>Express is great framework to handle the requests from the browser if you want to use Node server as
-development tool.</p>
+        <p><img src="/images/nyc.jpg"></p>
 <a id="more"></a>
-<p><em>server.js</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"></div><div class="line"><span class="keyword">var</span> isProduction = process.env.NODE_ENV === <span class="string">'production'</span>;</div><div class="line"><span class="keyword">var</span> port = isProduction ? process.env.PORT : <span class="number">3000</span>;</div><div class="line"><span class="keyword">var</span> publicPath = path.resolve(__dirname, <span class="string">'public'</span>);</div><div class="line"></div><div class="line"><span class="comment">// We point to our static assets</span></div><div class="line">app.use(express.static(publicPath));</div><div class="line"></div><div class="line"><span class="comment">// And run the server</span></div><div class="line">app.listen(port, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Server running on port '</span> + port);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h2 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h2><p>Let us first configure a webpack for our development workflow:</p>
-<p><em>webpack.config.js</em>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"><span class="keyword">var</span> nodeModulesPath = path.resolve(__dirname, <span class="string">'node_modules'</span>);</div><div class="line"><span class="keyword">var</span> buildPath = path.resolve(__dirname, <span class="string">'public'</span>, <span class="string">'build'</span>);</div><div class="line"><span class="keyword">var</span> mainPath = path.resolve(__dirname, <span class="string">'app'</span>, <span class="string">'main.js'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> config = &#123;</div><div class="line"></div><div class="line">  <span class="comment">// Makes sure errors in console map to the correct file</span></div><div class="line">  <span class="comment">// and line number</span></div><div class="line">  devtool: <span class="string">'eval'</span>,</div><div class="line">  <span class="attr">entry</span>: [</div><div class="line"></div><div class="line">    <span class="comment">// For hot style updates</span></div><div class="line">    <span class="string">'webpack/hot/dev-server'</span>,</div><div class="line"></div><div class="line">    <span class="comment">// The script refreshing the browser on none hot updates</span></div><div class="line">    <span class="string">'webpack-dev-server/client?http://localhost:8080'</span>,</div><div class="line"></div><div class="line">    <span class="comment">// Our application</span></div><div class="line">    mainPath],</div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line"></div><div class="line">    <span class="comment">// We need to give Webpack a path. It does not actually need it,</span></div><div class="line">    <span class="comment">// because files are kept in memory in webpack-dev-server, but an</span></div><div class="line">    <span class="comment">// error will occur if nothing is specified. We use the buildPath</span></div><div class="line">    <span class="comment">// as that points to where the files will eventually be bundled</span></div><div class="line">    <span class="comment">// in production</span></div><div class="line">    path: buildPath,</div><div class="line">    <span class="attr">filename</span>: <span class="string">'bundle.js'</span>,</div><div class="line"></div><div class="line">    <span class="comment">// Everything related to Webpack should go through a build path,</span></div><div class="line">    <span class="comment">// localhost:3000/build. That makes proxying easier to handle</span></div><div class="line">    publicPath: <span class="string">'/build/'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">module</span>: &#123;</div><div class="line"></div><div class="line">    <span class="attr">loaders</span>: [</div><div class="line"></div><div class="line">    <span class="comment">// I highly recommend using the babel-loader as it gives you</span></div><div class="line">    <span class="comment">// ES6/7 syntax and JSX transpiling out of the box</span></div><div class="line">    &#123;</div><div class="line">      <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</div><div class="line">      <span class="attr">loader</span>: <span class="string">'babel'</span>,</div><div class="line">      <span class="attr">exclude</span>: [nodeModulesPath]</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="comment">// Let us also add the style-loader and css-loader, which you can</span></div><div class="line">    <span class="comment">// expand with less-loader etc.</span></div><div class="line">    &#123;</div><div class="line">      <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">      <span class="attr">loader</span>: <span class="string">'style!css'</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// We have to manually add the Hot Replacement plugin when running</span></div><div class="line">  <span class="comment">// from Node</span></div><div class="line">  plugins: [<span class="keyword">new</span> Webpack.HotModuleReplacementPlugin()]</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = config;</div></pre></td></tr></table></figure></p>
-
       
     </div>
 
@@ -343,8 +327,8 @@ development tool.</p>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/30/charpter 1/" rel="next" title="chapter 1 - Aulting">
-                <i class="fa fa-chevron-left"></i> chapter 1 - Aulting
+              <a href="/2015/12/30/chapter 1/" rel="next" title="Chapter 1 - Aulting">
+                <i class="fa fa-chevron-left"></i> Chapter 1 - Aulting
               </a>
             
           </div>
@@ -353,8 +337,8 @@ development tool.</p>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/09/chapter 3/" rel="prev" title="chapter 3- Food and Sharing">
-                chapter 3- Food and Sharing <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/09/chapter 3/" rel="prev" title="Chapter 3 - Food and Sharing">
+                Chapter 3 - Food and Sharing <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -402,17 +386,8 @@ development tool.</p>
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/self.jpg"
@@ -452,22 +427,6 @@ development tool.</p>
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-configuration-file"><span class="nav-number">1.</span> <span class="nav-text">Project configuration file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Express-server"><span class="nav-number">2.</span> <span class="nav-text">Express server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Workflow"><span class="nav-number">3.</span> <span class="nav-text">Workflow</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
     </div>
   </aside>
@@ -489,17 +448,6 @@ development tool.</p>
   <span class="author" itemprop="copyrightHolder">Xiaodong Cao</span>
 </div>
 
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
 
 
         
